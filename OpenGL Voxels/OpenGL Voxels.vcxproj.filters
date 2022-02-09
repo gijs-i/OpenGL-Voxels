@@ -1,0 +1,342 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\noise">
+      <UniqueIdentifier>{78a4a26c-430e-4762-84c8-9a7e561bbf45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\imgui">
+      <UniqueIdentifier>{7edd1281-0a0d-4d95-b9fa-5b2287d13590}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\noise\win32">
+      <UniqueIdentifier>{c8ff7e02-5c4e-4179-bcf0-6ddf7fe8d01c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\noise\module">
+      <UniqueIdentifier>{349c1678-12d0-45c3-a9e9-45f945bc3918}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\noise\model">
+      <UniqueIdentifier>{556b0664-c2f6-4877-9da2-a4887305c49e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_draw.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_glfw.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_opengl3.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_tables.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_widgets.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\latlon.cpp">
+      <Filter>Source Files\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\noisegen.cpp">
+      <Filter>Source Files\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\win32\dllmain.cpp">
+      <Filter>Source Files\noise\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\abs.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\add.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\billow.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\blend.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\cache.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\checkerboard.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\clamp.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\const.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\curve.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\cylinders.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\displace.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\exponent.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\invert.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\max.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\min.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\modulebase.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\multiply.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\perlin.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\power.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\ridgedmulti.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\rotatepoint.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\scalebias.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\scalepoint.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\select.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\spheres.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\terrace.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\translatepoint.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\turbulence.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\voronoi.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\model\cylinder.cpp">
+      <Filter>Source Files\noise\model</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\model\line.cpp">
+      <Filter>Source Files\noise\model</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\model\plane.cpp">
+      <Filter>Source Files\noise\model</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\model\sphere.cpp">
+      <Filter>Source Files\noise\model</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vertex_shader.shader">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="fragment_shader.shader">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="noise\Makefile">
+      <Filter>Source Files\noise</Filter>
+    </None>
+    <None Include="noise\Sources">
+      <Filter>Source Files\noise</Filter>
+    </None>
+    <None Include="noise\win32\libnoise.def">
+      <Filter>Source Files\noise\win32</Filter>
+    </None>
+    <None Include="noise\win32\noise.aps">
+      <Filter>Source Files\noise\win32</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="shader_handler.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\basictypes.h">
+      <Filter>Source Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\exception.h">
+      <Filter>Source Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\interp.h">
+      <Filter>Source Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\latlon.h">
+      <Filter>Source Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\mathconsts.h">
+      <Filter>Source Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\misc.h">
+      <Filter>Source Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\noise.h">
+      <Filter>Source Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\noisegen.h">
+      <Filter>Source Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\vectortable.h">
+      <Filter>Source Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\win32\resource.h">
+      <Filter>Source Files\noise\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\abs.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\add.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\billow.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\blend.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\cache.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\checkerboard.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\clamp.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\const.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\curve.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\cylinders.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\displace.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\exponent.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\invert.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\max.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\min.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\module.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\modulebase.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\multiply.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\perlin.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\power.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\ridgedmulti.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\rotatepoint.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\scalebias.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\scalepoint.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\select.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\spheres.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\terrace.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\translatepoint.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\turbulence.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\voronoi.h">
+      <Filter>Source Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\model\cylinder.h">
+      <Filter>Source Files\noise\model</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\model\line.h">
+      <Filter>Source Files\noise\model</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\model\model.h">
+      <Filter>Source Files\noise\model</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\model\plane.h">
+      <Filter>Source Files\noise\model</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\model\sphere.h">
+      <Filter>Source Files\noise\model</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="atlas.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="OpenGL Voxels.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
