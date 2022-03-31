@@ -325,7 +325,16 @@
     <ClInclude Include="noise\model\sphere.h">
       <Filter>Source Files\noise\model</Filter>
     </ClInclude>
-    <ClInclude Include="camera.hpp">
+    <ClInclude Include="block.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="buffer.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vertex.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

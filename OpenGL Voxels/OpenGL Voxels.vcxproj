@@ -199,7 +199,8 @@
     <None Include="vertex_shader.shader" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="camera.hpp" />
+    <ClInclude Include="block.hpp" />
+    <ClInclude Include="buffer.hpp" />
     <ClInclude Include="noise\basictypes.h" />
     <ClInclude Include="noise\exception.h" />
     <ClInclude Include="noise\interp.h" />
@@ -247,6 +248,8 @@
     <ClInclude Include="noise\win32\resource.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="shader_handler.hpp" />
+    <ClInclude Include="texture.hpp" />
+    <ClInclude Include="vertex.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="atlas.png" />

@@ -2,10 +2,12 @@
 in vec3 aPosition;
 in vec2 aTexCoord;
 in vec3 aNormal;
+in float aAO;
 
 out vec2 texCoord;
 out vec3 normal;
 out vec3 fragPos;
+out float AO;
 
 uniform mat4 uProjection;
 uniform mat4 uView;
@@ -17,4 +19,5 @@ void main()
 	texCoord = aTexCoord;
 	fragPos = vec3(uTransform * vec4(aPosition, 1.0));
 	normal = aNormal;
+	AO = aAO;
 }

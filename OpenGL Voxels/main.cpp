@@ -17,166 +17,23 @@
 #include "stb_image.h"
 
 #include "shader_handler.hpp"
+#include "buffer.hpp"
+#include "block.hpp"
 
 #define WIDTH 1920
 #define HEIGHT 1080
 
 #define MAX_TRANSLATE 128.0f
 
-#define CHUNK_DIMENSIONS 32
+#define CHUNK_DIMENSIONS 48
 
 #define SENSITIVITY 0.1f;
 
-struct Vertex {
-	float x;
-	float y;
-	float z;
-	float uvX;
-	float uvY;
-	float normalX;
-	float normalY;
-	float normalZ;
-};
-
-class Buffer {
-public:
-	std::vector<Vertex> vertices;
-	std::vector<unsigned int> indices;
-	unsigned int index = 0;
-
-	void createBackVerticalPlane(float x, float y, float z) {
-		vertices.push_back({ x + 0.0f, y + 1.0f,z + 0.0f,1.0f,1.0f,0.0f, 0.0f, -1.0f });
-		vertices.push_back({ x + 0.0f,y + 0.0f,z + 0.0f,1.0f,0.0f,0.0f, 0.0f, -1.0f });
-		vertices.push_back({ x + 1.0f,y + 0.0f,z + 0.0f,0.0f,0.0f,0.0f, 0.0f, -1.0f });
-		vertices.push_back({ x + 1.0f,y + 1.0f,z + 0.0f,0.0f,1.0f,0.0f, 0.0f, -1.0f });
-
-		indices.push_back(index * 4 + 0);
-		indices.push_back(index * 4 + 1);
-		indices.push_back(index * 4 + 3);
-		indices.push_back(index * 4 + 1);
-		indices.push_back(index * 4 + 2);
-		indices.push_back(index * 4 + 3);
-
-		index++;
-	}
-
-	void createFrontVerticalPlane(float x, float y, float z) {
-		vertices.push_back({ x + 1.0f, y + 1.0f,z + 1.0f,1.0f,1.0f,0.0f, 0.0f, 1.0f });
-		vertices.push_back({ x + 1.0f,y + 0.0f,z + 1.0f,1.0f,0.0f,0.0f, 0.0f, 1.0f });
-		vertices.push_back({ x + 0.0f,y + 0.0f,z + 1.0f,0.0f,0.0f,0.0f, 0.0f, 1.0f });
-		vertices.push_back({ x + 0.0f,y + 1.0f,z + 1.0f,0.0f,1.0f,0.0f, 0.0f, 1.0f });
-
-		indices.push_back(index * 4 + 0);
-		indices.push_back(index * 4 + 1);
-		indices.push_back(index * 4 + 3);
-		indices.push_back(index * 4 + 1);
-		indices.push_back(index * 4 + 2);
-		indices.push_back(index * 4 + 3);
-
-		index++;
-	}
-
-	void createLeftVerticalPlane(float x, float y, float z) {
-		vertices.push_back({ x + 0.0f, y + 1.0f,z + 1.0f,1.0f,1.0f,-1.0f, 0.0f, 0.0f });
-		vertices.push_back({ x + 0.0f,y + 0.0f,z + 1.0f,1.0f,0.0f,-1.0f, 0.0f, 0.0f });
-		vertices.push_back({ x + 0.0f,y + 0.0f,z + 0.0f,0.0f,0.0f,-1.0f, 0.0f, 0.0f });
-		vertices.push_back({ x + 0.0f,y + 1.0f,z + 0.0f,0.0f,1.0f,-1.0f, 0.0f, 0.0f });
-
-		indices.push_back(index * 4 + 0);
-		indices.push_back(index * 4 + 1);
-		indices.push_back(index * 4 + 3);
-		indices.push_back(index * 4 + 1);
-		indices.push_back(index * 4 + 2);
-		indices.push_back(index * 4 + 3);
-
-		index++;
-	}
-
-	void createRightVerticalPlane(float x, float y, float z) {
-		vertices.push_back({ x + 1.0f, y + 1.0f,z + 0.0f,1.0f,1.0f,1.0f, 0.0f, 0.0f });
-		vertices.push_back({ x + 1.0f,y + 0.0f,z + 0.0f,1.0f,0.0f,1.0f, 0.0f, 0.0f });
-		vertices.push_back({ x + 1.0f,y + 0.0f,z + 1.0f,0.0f,0.0f,1.0f, 0.0f, 0.0f });
-		vertices.push_back({ x + 1.0f,y + 1.0f,z + 1.0f,0.0f,1.0f,1.0f, 0.0f, 0.0f });
-
-		indices.push_back(index * 4 + 0);
-		indices.push_back(index * 4 + 1);
-		indices.push_back(index * 4 + 3);
-		indices.push_back(index * 4 + 1);
-		indices.push_back(index * 4 + 2);
-		indices.push_back(index * 4 + 3);
-
-		index++;
-	}
-
-	void createBottomHorizontalPlane(float x, float y, float z) {
-		vertices.push_back({ x + 1.0f, y + 0.0f,z + 1.0f,1.0f,1.0f,0.0f,-1.0f,0.0f });
-		vertices.push_back({ x + 1.0f,y + 0.0f,z + 0.0f,1.0f,0.0f,0.0f,-1.0f,0.0f });
-		vertices.push_back({ x + 0.0f,y + 0.0f,z + 0.0f,0.0f,0.0f,0.0f,-1.0f,0.0f });
-		vertices.push_back({ x + 0.0f,y + 0.0f,z + 1.0f,0.0f,1.0f,0.0f,-1.0f,0.0f });
-
-		indices.push_back(index * 4 + 0);
-		indices.push_back(index * 4 + 1);
-		indices.push_back(index * 4 + 3);
-		indices.push_back(index * 4 + 1);
-		indices.push_back(index * 4 + 2);
-		indices.push_back(index * 4 + 3);
-
-		index++;
-	}
-
-	void createTopHorizontalPlane(float x, float y, float z) {
-		vertices.push_back({ x + 1.0f, y + 1.0f,z + 0.0f,1.0f,1.0f,0.0f,1.0f,0.0f });
-		vertices.push_back({ x + 1.0f,y + 1.0f,z + 1.0f,1.0f,0.0f,0.0f,1.0f,0.0f });
-		vertices.push_back({ x + 0.0f,y + 1.0f,z + 1.0f,0.0f,0.0f,0.0f,1.0f,0.0f });
-		vertices.push_back({ x + 0.0f,y + 1.0f,z + 0.0f,0.0f,1.0f,0.0f,1.0f,0.0f });
-
-		indices.push_back(index * 4 + 0);
-		indices.push_back(index * 4 + 1);
-		indices.push_back(index * 4 + 3);
-		indices.push_back(index * 4 + 1);
-		indices.push_back(index * 4 + 2);
-		indices.push_back(index * 4 + 3);
-
-		index++;
-	}
-
-	unsigned int getVertexBufferSize() {
-		return (unsigned int)vertices.size();
-	}
-
-	unsigned int getIndexBufferSize() {
-		return (unsigned int)indices.size();
-	}
-
-	void printIndexBuffer() {
-		for (int i = 0; i < indices.size(); i++) {
-			std::cout << "Index " << i << ": " << indices[i] << std::endl;
-		}
-	}
-
-	void printVertexBuffer() {
-		for (int i = 0; i < vertices.size(); i++) {
-			Vertex vertex = vertices[i];
-			std::cout << "Vertex " << i << ": x: " << vertex.x << ", y: " << vertex.y << ", z: " << vertex.z << std::endl;
-		}
-	}
-
-	void push() {
-		vertices.clear();
-		indices.clear();
-		index = 0;
-	}
-
-	void pop() {
-		glBufferSubData(GL_ARRAY_BUFFER, 0, getVertexBufferSize() * sizeof(Vertex), &vertices.front());
-		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, getIndexBufferSize() * sizeof(unsigned int), &indices.front());
-	}
-
-	~Buffer() {
-		vertices.clear();
-		indices.clear();
-	}
-};
+/* 
+	Chunk system certainly not final. World currently consists of only 1 chunk. An ideal system would be a std::vector containing multiple chunks and being able to load and unload certain chunks.
+	Even better would being able to load and unload certain parts in the VBO to save on VRAM. A way to implement that would be to assign certain chunks of data in the VBO to certain chunks and when a chunk is unloaded deleting that data in the VBO.
+	This is to avoid having to completely reupload the VBO from scratch and to only upload a certain part of it.
+*/
 
 class Chunk {
 public:
@@ -184,6 +41,13 @@ public:
 
 	//Init chunk
 	Chunk() {
+		for (int x = 0; x < CHUNK_DIMENSIONS; x++) {
+			for (int y = 0; y < CHUNK_DIMENSIONS; y++) {
+				for (int z = 0; z < CHUNK_DIMENSIONS; z++) {
+					tiles[x][y][z] = 0;
+				}
+			}
+		}
 		generateTerrain();
 	}
 
@@ -193,11 +57,11 @@ public:
 		return tiles[x][y][z];
 	}
 
-	//Generate mountains inside the 3D world array using perlin noise
-	void generateTerrain() {
-		noise::module::Perlin perlinNoise;
-		perlinNoise.SetSeed(rand() % 100000);
+	void setTile(unsigned int x, unsigned int y, unsigned int z, BlockEnum block) {
+		tiles[x][y][z] = (unsigned int)block;
+	}
 
+	void regenerate() {
 		for (int x = 0; x < CHUNK_DIMENSIONS; x++) {
 			for (int y = 0; y < CHUNK_DIMENSIONS; y++) {
 				for (int z = 0; z < CHUNK_DIMENSIONS; z++) {
@@ -205,59 +69,80 @@ public:
 				}
 			}
 		}
+		generateTerrain();
+	}
+
+	//Generate mountains inside the 3D world array using perlin noise
+	void generateTerrain() {
+		noise::module::Perlin perlinNoise;
+		srand(time(0));
+		perlinNoise.SetSeed(rand() % 10000);
+
+		std::cout << "[Chunk] Generating chunk..." << std::endl;
 
 		for (int x = 0; x < CHUNK_DIMENSIONS; x++) {
 			for (int z = 0; z < CHUNK_DIMENSIONS; z++) {
-				int height = (int)(abs(perlinNoise.GetValue((double)x / 64, (double)z / 64, 0.0f) * 32));
+				float mainNoise = abs(perlinNoise.GetValue((float)x / 512.0f, 0.0f, (float)z / 512.0f)) * 16;
+				float octaveNoise = abs(perlinNoise.GetValue((float)x / 128.0f, 0.0f, (float)z / 128.0f)) * 32;
+				unsigned int height = 4 + (unsigned int)(mainNoise + octaveNoise);
 				for (int y = 0; y < height; y++) {
-					tiles[x][y][z] = 1;
+					BlockEnum tile = abs(perlinNoise.GetValue((float)x / 256.0f, (float)y / 256.0f, (float)z / 256.0f)) > 0.1 ? BlockEnum::DIRT : BlockEnum::STONE;
+					if (y == height - 1 && tile == BlockEnum::DIRT) tile = BlockEnum::GRASS;
+					setTile(x, y, z, tile);
 				}
 			}
 		}
-	}
 
-	//Generate a large cube
-	void generateCube() {
-		for (int x = 0; x < CHUNK_DIMENSIONS; x++) {
-			for (int y = 0; y < CHUNK_DIMENSIONS; y++) {
-				for (int z = 0; z < CHUNK_DIMENSIONS; z++) {
-					tiles[x][y][z] = 1;
-				}
-			}
-		}
+		std::cout << "[Chunk] Chunk generated." << std::endl;
 	}
 
 	//Convert the 3D world array to a mesh
-	void pushToBuffer(Buffer* buffer) {
+	void generateMesh(Buffer* buffer, BlockRegistry* blockRegistry) {
+		std::cout << "[Chunk] Generating mesh..." << std::endl;
 		for (int x = 0; x < CHUNK_DIMENSIONS; x++) {
 			for (int y = 0; y < CHUNK_DIMENSIONS; y++) {
 				for (int z = 0; z < CHUNK_DIMENSIONS; z++) {
 					unsigned int tile = tiles[x][y][z];
 					if (tile == 0) continue;
-					float xPos = (float)x;
-					float yPos = (float)y;
-					float zPos = (float)z;
-					if (getTile(x + 1, y, z) == 0) {
-						buffer->createRightVerticalPlane(xPos, yPos, zPos);
-					}
-					if (getTile(x - 1, y, z) == 0) {
-						buffer->createLeftVerticalPlane(xPos, yPos, zPos);
-					}
-					if (getTile(x, y + 1, z) == 0) {
-						buffer->createTopHorizontalPlane(xPos, yPos, zPos);
-					}
-					if (getTile(x, y - 1, z) == 0) {
-						buffer->createBottomHorizontalPlane(xPos, yPos, zPos);
-					}
-					if (getTile(x, y, z + 1) == 0) {
-						buffer->createFrontVerticalPlane(xPos, yPos, zPos);
-					}
-					if (getTile(x, y, z - 1) == 0) {
-						buffer->createBackVerticalPlane(xPos, yPos, zPos);
-					}
+
+					BlockSpaceInfo blockSpaceInfo = {
+						getTile(x + 1, y, z) == 0, //Right
+						getTile(x - 1, y, z) == 0, //Left
+						getTile(x, y + 1, z) == 0, //Top
+						getTile(x, y - 1, z) == 0, //Bottom
+						getTile(x, y, z + 1) == 0, //Front
+						getTile(x, y, z - 1) == 0, //Back
+
+						getTile(x + 1, y, z - 1) != 0, //Top-right
+						getTile(x + 1, y, z + 1) != 0, //Bottom-right
+						getTile(x - 1, y, z + 1) != 0, //Bottom-left
+						getTile(x - 1, y, z - 1) != 0, //Top-left
+
+						getTile(x, y + 1, z - 1) != 0, //Upper top
+						getTile(x + 1, y + 1, z - 1) != 0, //Upper top-right
+						getTile(x + 1, y + 1, z) != 0, //Upper right
+						getTile(x + 1, y + 1, z + 1) != 0, //Upper down-right
+						getTile(x, y + 1, z + 1) != 0, //Upper down
+						getTile(x - 1, y + 1, z + 1) != 0, //Upper down-left
+						getTile(x - 1, y + 1, z) != 0, //Upper left
+						getTile(x - 1, y + 1, z - 1) != 0, //Upper Top-left
+
+						getTile(x, y - 1, z - 1) != 0, //Lower top
+						getTile(x + 1, y - 1, z - 1) != 0, //Lower top-right
+						getTile(x + 1, y - 1, z) != 0, //Lower right
+						getTile(x + 1, y - 1, z + 1) != 0, //Lower down-right
+						getTile(x, y - 1, z + 1) != 0, //Lower down
+						getTile(x - 1, y - 1, z + 1) != 0, //Lower down-left
+						getTile(x - 1, y - 1, z) != 0, //Lower left
+						getTile(x - 1, y - 1, z - 1) != 0, //Upper Top-left
+					};
+
+					Block* block = blockRegistry->getBlock(tile);
+					block->generateMesh(buffer,(float)x,(float)y,(float)z,blockSpaceInfo);
 				}
 			}
 		}
+		std::cout << "[Chunk] Mesh generation done." << std::endl;
 	}
 };
 
@@ -308,8 +193,50 @@ public:
 	}
 };
 
+Vector3 raycast(Chunk* chunk, glm::vec3 pos, glm::vec3 lookPos,float length, float stepSize) {
+	unsigned int tile;
+	int x;
+	int y;
+	int z;
+	for (float i = 0.0f; i < length; i += stepSize) {
+		glm::vec3 ray = pos + i * lookPos;
+		x = (int)ray.x;
+		y = (int)ray.y;
+		z = (int)ray.z;
+		tile = chunk->getTile(x,y,z);
+		if (tile != 0) return { x, y, z };
+	}
+}
+
+//Rays can hit a diagonal and place blocks on a diagonal. Maybe a grid snap of the lookPos vector should do the trick, allowing it to only place blocks on a certain face.
+Vector3 raycastNormal(Chunk* chunk, glm::vec3 pos, glm::vec3 lookPos, float length, float stepSize) {
+	unsigned int tile;
+	int x;
+	int y;
+	int z;
+	for (float i = 0.0f; i < length; i += stepSize) {
+		glm::vec3 ray = pos + i * lookPos;
+		int rayX = (int)ray.x;
+		int rayY = (int)ray.y;
+		int rayZ = (int)ray.z;
+		tile = chunk->getTile(rayX, rayY, rayZ);
+		if (tile == 0) {
+			x = rayX;
+			y = rayY;
+			z = rayZ;
+			std::cout << "[Raycast] Found air block before block at: " << x << ", " << y << ", " << z << std::endl;
+		}
+		else {
+			std::cout << "[Raycast] Found block: " << tile << std::endl;
+			break;
+		}
+	}
+	return { x, y, z };
+}
+
 bool debugEnabled = false;
 bool firstClick = true;
+bool performRaycast = false;
 float lastX = (float)(WIDTH / 2), lastY = (float)(HEIGHT / 2);
 Camera* camera = nullptr;
 
@@ -330,6 +257,7 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		}
 	}
+	if (key == GLFW_KEY_E && action == GLFW_PRESS) performRaycast = true;
 }
 
 void cursorPosCallback(GLFWwindow* window, double mouseXPos, double mouseYPos) {
@@ -358,9 +286,10 @@ void scrollCallback(GLFWwindow* window, double xOffset, double yOffset) {
 int main() {
 
 	Buffer *buffer = new Buffer;
+	BlockRegistry* blockRegistry = new BlockRegistry;
 	Chunk *chunk = new Chunk;
 
-	chunk->pushToBuffer(buffer);
+	chunk->generateMesh(buffer, blockRegistry);
 
 	//Load GLFW
 	if (!glfwInit()) {
@@ -390,7 +319,7 @@ int main() {
 
 	unsigned int shaderProgram = createShaderProgram("vertex_shader.shader", "fragment_shader.shader");
 
-	//Create and bind to vertex array object (storing used VBO, EBO and Vertex Attributes) (VBO bindings, active shader program, texture bindings, texture sampling/wrapping settings, uniforms)
+	//Create and bind to vertex array object (VBO and EBO bindings, active shader program, texture bindings, texture sampling/wrapping settings, attributes, uniforms)
 	unsigned int VAO;
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
@@ -421,6 +350,10 @@ int main() {
 	glVertexAttribPointer(normalAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(5*sizeof(float)));
 	glEnableVertexAttribArray(normalAttribute);
 
+	unsigned int AOAttribute = glGetAttribLocation(shaderProgram, "aAO");
+	glVertexAttribPointer(AOAttribute, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(8 * sizeof(float)));
+	glEnableVertexAttribArray(AOAttribute);
+
 	//Create uniforms
 	unsigned int timeUniform = glGetUniformLocation(shaderProgram, "uTime");
 	glUniform1f(timeUniform, (float)glfwGetTime());
@@ -438,8 +371,12 @@ int main() {
 	glUniform3fv(ambientUniform, 1, glm::value_ptr(ambientColor));
 
 	unsigned int lightColorUniform = glGetUniformLocation(shaderProgram, "uLightColor");
-	glm::vec3 lightColor = glm::vec3(1.0f);
+	glm::vec3 lightColor = glm::vec3(125.0f/255.0f, 125.0f/255.0f, 125.0f/255.0f);
 	glUniform3fv(lightColorUniform, 1, glm::value_ptr(lightColor));
+
+	unsigned int AOIntensityUniform = glGetUniformLocation(shaderProgram, "uAOIntensity");
+	float AOIntensity = 0.15f;
+	glUniform1f(AOIntensityUniform, AOIntensity);
 
 
 	//unsigned int colorUniform = glGetUniformLocation(shaderProgram, "uColor");
@@ -500,9 +437,9 @@ int main() {
 	float deltaTime = 0.0;
 	float lastFrame = 0.0f;
 
-	float translateX = -CHUNK_DIMENSIONS/2;
+	float translateX = 0.0f;
 	float translateY = 0.0f;
-	float translateZ = -CHUNK_DIMENSIONS/2;
+	float translateZ = 0.0f;
 	float rotateX = 0.0f;
 	float rotateY = 0.0f;
 	float rotateZ = 0.0f;
@@ -537,16 +474,25 @@ int main() {
 		glUniform3fv(lightPosUniform, 1, glm::value_ptr(lightPos));
 		glUniform3fv(ambientUniform, 1, glm::value_ptr(ambientColor));
 		glUniform3fv(lightColorUniform, 1, glm::value_ptr(lightColor));
+		glUniform1f(AOIntensityUniform, AOIntensity);
 
 		glUniformMatrix4fv(transformUniform, 1, GL_FALSE, glm::value_ptr(transformMatrix));
 		
 		glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		if (performRaycast) {
+			Vector3 blockPos = raycastNormal(chunk, camera->cameraPos, camera->cameraFront, 16.0f, 0.5f);
+			chunk->setTile(blockPos.x, blockPos.y, blockPos.z, BlockEnum::STONE);
+			buffer->push();
+			//chunk->regenerate();
+			chunk->generateMesh(buffer, blockRegistry);
+			buffer->pop();
+			performRaycast = false;
+		}
 		
 		//Draw graphics
-		glBindVertexArray(VAO);
-		glUseProgram(shaderProgram);
-		glDrawElements(GL_TRIANGLES, buffer->getIndexBufferSize(), GL_UNSIGNED_INT, 0);
+		buffer->render(VAO);
 
 		//Begin ImGUI draw
 		ImGui_ImplOpenGL3_NewFrame();
@@ -561,12 +507,17 @@ int main() {
 			ImGui::SliderAngle("Rotate X", &rotateX);
 			ImGui::SliderAngle("Rotate Y", &rotateY);
 			ImGui::SliderAngle("Rotate Z", &rotateZ);
-			if (ImGui::Button("Regenerate Chunk")) {
+			if (ImGui::Button("Render Chunk")) {
 				buffer->push();
-				chunk->generateTerrain();
-				chunk->pushToBuffer(buffer);
+				chunk->generateMesh(buffer, blockRegistry);
 				buffer->pop();
 			};
+			if (ImGui::Button("Raycast")) {
+				raycast(chunk, camera->cameraPos, camera->cameraFront, 16.0f, 1.0f);
+				buffer->push();
+				chunk->generateMesh(buffer, blockRegistry);
+				buffer->pop();
+			}
 			ImGui::End();
 
 			ImGui::Begin("Camera controls");
@@ -580,6 +531,7 @@ int main() {
 			ImGui::SliderFloat("Light Z", &lightZ, -1.0f, 1.0f);
 			ImGui::ColorPicker3("Ambient Color", glm::value_ptr(ambientColor));
 			ImGui::ColorPicker3("Light Color", glm::value_ptr(lightColor));
+			ImGui::SliderFloat("Ambient Occlusion Intensity", &AOIntensity, 0.0f, 1.0f);
 			ImGui::End();
 		}
 
@@ -587,7 +539,7 @@ int main() {
 
 		//Upload draw data to the GPU
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-		
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 		processInput(window, camera, deltaTime);
@@ -600,6 +552,7 @@ int main() {
 	glfwTerminate();
 
 	delete buffer;
+	delete blockRegistry;
 	delete chunk;
 	delete camera;
 
